@@ -161,6 +161,13 @@ Drawing the shapes are pretty easy but I spent most of the time on the following
 
 Planning to write an article on that soon.
 
+## Bug Fixes & Pull Requests
+
+If you find any bugs please feel to create an issue or create a pull request.
+
+> I can only accept pull requests to the source code and not the binary files for ensuring the repo stays sanitized. If you have any feature requests for the workflow, I'd be happy to add them in after a discussion.
+
+
 ## License
 
 Copyright (c) 2019 Renan Cakirerk
