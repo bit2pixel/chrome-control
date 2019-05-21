@@ -186,7 +186,7 @@ function focus(arg) {
     chrome.activate()
 }
 
-// Focus on a specific tab
+// Copy a specific tab
 function copy(arg) {
     let { winIdx, tabIdx } = parseWinTabIdx(arg)
     let urlToTitle = {}
