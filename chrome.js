@@ -1,10 +1,10 @@
 #!/usr/bin/env osascript -l JavaScript
 
 /**
- * A JXA script and an Alfred Workflow for controlling Google Chrome (Javascript for Automation). 
+ * A JXA script and an Alfred Workflow for controlling Google Chrome (Javascript for Automation).
  * Also see my "How I Navigate Hundreds of Tabs on Chrome with JXA and Alfred" article at [1]
  * if you're interested in learning how I created the workflow.
- * [1] https://medium.com/@bit2pixel/how-i-navigate-hundreds-of-tabs-on-chrome-with-jxa-and-alfred-9bbf971af02b  
+ * [1] https://medium.com/@bit2pixel/how-i-navigate-hundreds-of-tabs-on-chrome-with-jxa-and-alfred-9bbf971af02b
  */
 
 ObjC.import('stdlib')
@@ -48,7 +48,7 @@ function run(argv) {
 function chromeControl(argv) {
     if (argv.length < 1) { usage() }
 
-    // --ui flag will cause the questions to be asked using a 
+    // --ui flag will cause the questions to be asked using a
     // Chrome dialog instead of text in command line.
     let uiFlagIdx = argv.indexOf('--ui')
     if (uiFlagIdx > -1) {
@@ -105,6 +105,7 @@ function list() {
                 'url': tab.url(),
                 'winIdx': winIdx,
                 'tabIdx': tabIdx,
+                'match': (tab.title() || 'No Title') + ' - ' + tab.url(),
 
                 // Alfred specific properties
                 'arg': `${winIdx},${tabIdx}`,
