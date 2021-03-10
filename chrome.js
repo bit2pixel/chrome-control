@@ -97,27 +97,28 @@ function chromeControl(argv) {
 // List all open tabs
 function list() {
     // Iterate all tabs in all windows
-    let urlToTitle = {}
-    chrome.windows().forEach((window, winIdx) => {
-        window.tabs().forEach((tab, tabIdx) => {
-            urlToTitle[tab.url()] = {
-                'title': tab.title() || 'No Title',
-                'url': tab.url(),
+    // Double entries arrays matching windows/tabs indexes (Using this improves a lot the performances)
+    let allTabsTitle = chrome.windows.tabs.title()
+    let allTabsUrls = chrome.windows.tabs.url()
+
+    var titleToUrl = {}
+    for (var winIdx = 0; winIdx < allTabsTitle.length; winIdx++) {
+        for (var tabIdx = 0; tabIdx < allTabsTitle[winIdx].length; tabIdx ++) {
+            let title = allTabsTitle[winIdx][tabIdx]
+            let url = allTabsUrls[winIdx][tabIdx]
+
+            titleToUrl[title] = {
+                'title': title || 'No Title',
+                'url': url,
                 'winIdx': winIdx,
                 'tabIdx': tabIdx,
 
                 // Alfred specific properties
                 'arg': `${winIdx},${tabIdx}`,
-                'subtitle': tab.url(),
+                'subtitle': url,
             }
-        })
-    })
-
-    // Create a title to url map
-    let titleToUrl = {}
-    Object.keys(urlToTitle).forEach(url => {
-        titleToUrl[urlToTitle[url].title] = urlToTitle[url]
-    })
+        }
+    }
 
     // Generate output
     out = { 'items': [] }
