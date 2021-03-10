@@ -83,6 +83,10 @@ function chromeControl(argv) {
         if (argv.length !== 2) { usage() }
         const arg = argv[1]
         focus(arg)
+    } else if (cmd === 'copy') {
+        if (argv.length !== 2) { usage() }
+        const arg = argv[1]
+        copy(arg)        
     } else {
         usage()
     }
@@ -181,6 +185,22 @@ function focus(arg) {
     chrome.windows[winIdx].activeTabIndex = tabIdx + 1 // Focous on tab
     chrome.windows[winIdx].index = 1 // Focus on this specific Chrome window
     chrome.activate()
+}
+
+// Focus on a specific tab
+function copy(arg) {
+    let { winIdx, tabIdx } = parseWinTabIdx(arg)
+    let urlToTitle = {}
+    let selectedTab = tabIdx;
+
+    chrome.windows().forEach((window, winIdx) => {
+        window.tabs().forEach((tab, tabIdx) => {
+            if (tabIdx === selectedTab) {
+                urlToTitle = tab.url();
+            }
+        })
+    })
+    println(urlToTitle)
 }
 
 // Close duplicate tabs
